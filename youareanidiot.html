@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>You Are An Idiot!</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: white;
+            overflow: hidden;
+        }
+
+        .flash {
+            animation: blink 0.1s infinite;
+        }
+
+        @keyframes blink {
+            0% { background-color: white; }
+            50% { background-color: black; }
+            100% { background-color: white; }
+        }
+
+        img {
+            width: 100vw;
+            height: 100vh;
+            object-fit: cover;
+            position: absolute;
+            top: 0;
+            left: 0;
+            display: none; /* Oculto al inicio */
+        }
+
+        #btn-scare {
+            position: relative;
+            z-index: 10;
+            padding: 20px 40px;
+            font-size: 24px;
+            font-weight: bold;
+            color: white;
+            background-color: red;
+            border: 5px solid black;
+            cursor: pointer;
+            border-radius: 10px;
+            box-shadow: 5px 5px 0px #000;
+        }
+
+        #btn-scare:active {
+            transform: translate(2px, 2px);
+            box-shadow: 2px 2px 0px #000;
+        }
+    </style>
+</head>
+<body id="main">
+
+    <button id="btn-scare">PRESIONAME</button>
+
+    <img id="idiot-gif" src="YOU-ARE-AN-IDIOT.gif" alt="Idiot">
+    <audio id="player" loop src="you-are-an-idiot.mp3"></audio>
+
+    <script>
+        const body = document.getElementById('main');
+        const audio = document.getElementById('player');
+        const btn = document.getElementById('btn-scare');
+        const gif = document.getElementById('idiot-gif');
+
+        btn.addEventListener('click', () => {
+            btn.remove(); // El botón desaparece
+            gif.style.display = "block"; // Aparece el GIF
+            body.classList.add('flash'); // Inicia el parpadeo
+            audio.play(); // Inicia el audio
+        });
+
+        window.onbeforeunload = function() {
+            return "Are you an idiot?";
+        };
+    </script>
+</body>
+</html>
